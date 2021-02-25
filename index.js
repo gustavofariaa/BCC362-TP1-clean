@@ -19,13 +19,13 @@ const cleanPunctuation = (linha) => {
 };
 
 const termCleanStep = (channel, message) => {
-  console.log(message);
-
   const { linha, queueIndex } = message;
 
   const linhaSemAcentos = cleanTerms(linha);
   const linhaLimpa = cleanPunctuation(linhaSemAcentos);
   const msg = messageBuilder(linhaLimpa, queueIndex);
+
+  console.log(msg.linha);
 
   publish(getNextStep(channel), msg);
 };
