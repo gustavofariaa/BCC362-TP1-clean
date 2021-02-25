@@ -15,7 +15,7 @@ const cleanTerms = (linha) => linha.normalize("NFD");
 const cleanPunctuation = (linha) => {
   const regex = RegExp(/[^\w\s]/gi);
 
-  return linha.replace(regex, " ");
+  return linha.replace(regex, "");
 };
 
 const termCleanStep = (channel, message) => {
