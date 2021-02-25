@@ -7,6 +7,11 @@ const {
   messageBuilder, getNextStep, roundRobinSubscribe, TERMCLEAN,
 } = require('@joaoderocha/redis-pub-sub-nodejs/headless/utils');
 
+const cleanTerms = (linha) => linha.normalize('NFD');
+
+const cleanPunctuation = (linha) => linha
+    .replace(/[.*.,+?^${}()~!@#$:|[\]\\]/gi, '');
+
 const termCleanStep = (channel, message) => {
   console.log(message);
 
@@ -18,10 +23,5 @@ const termCleanStep = (channel, message) => {
 
   publish(getNextStep(channel), msg);
 };
-
-const cleanTerms = (linha) => linha.normalize('NFD');
-
-const cleanPunctuation = (linha) => linha
-    .replace(/[.*.,+?^${}()~!@#$:|[\]\\]/gi, '');
 
 roundRobinSubscribe(TERMCLEAN, termCleanStep);
